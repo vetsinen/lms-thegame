@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LetMeStyle-TheGame</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <style>
+        .photo-container {
+            margin-top: 5px;
+        }
+        .photo-container img {
+            width: 100%;
+            height: auto;
+        }
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .buttons-container .button {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <section class="section" x-data="{
+    message: 'hello, vue',
+    random: (n)=>Math.floor(Math.random() * n),
+    swap: '',
+    tops: ['blacktopic','blacktshirt','leotopic','crosshirt'],
+    downs: ['lightjeans','holejeans','whiteshorts','blueshorts'],
+    field: [[],[],[],[]],
+    i:null,
+    j:null,
+
+    init: function(){
+        this.i = this.random(this.tops.length);
+        this.j = this.random(this.downs.length);
+
+        for (let i=0; i<this.tops.length;i++)
+        for (let j=0;j<this.downs.length;j++){
+            //console.log(i,j, this.tops[i],this.down[j]);
+            this.field[i][j]=this.tops[i]+'-'+this.downs[j];
+            }
+    this.update();
+    },
+
+    update: function(){
+
+    this.swap = 'static/'+this.field[this.i][this.j]+'.jpg';
+    //this.field[this.i][this.j]='';
+    },
+
+    nextTop: function(){
+        let i0 = this.i;
+        do this.i = this.random(this.tops.length);
+        while ( i0 === this.i)
+        this.update();
+    },
+    nextDown: function(){
+        let j0 = this.j;
+        do
+         this.j = this.random(this.downs.length);
+        while (j0 === this.j)
+        this.update();
+    }
+
+    }"
+    x-init="init()"
+    >
+        <div class="container">
+            <div class="photo-container">
+                <figure class="image">
+                    <img x-bind:src="swap" width="820" height="1280" alt="Person Photo">
+                </figure>
+            </div>
+            <div class="buttons-container">
+                <button x-on:click="nextTop" class="button is-primary">Поміняти верх</button>
+                <button x-on:click="nextDown" class="button is-link">Поміняти низ</button>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
