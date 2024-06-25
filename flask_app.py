@@ -7,6 +7,10 @@ app.secret_key = 'LETMESTYLE_214_SECRET_KEY'
 def index():
     return render_template('index.html')
 
+@app.route('/index2')
+def index2():
+    return render_template('index2.html')
+
 @app.post('/set_wallet')
 def set_wallet():
         # Save the form data to the session object
