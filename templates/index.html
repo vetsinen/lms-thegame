@@ -6,6 +6,7 @@
     <title>LetMeStyle-TheGame</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
     <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="static/main.js"></script>
     <style>
         .photo-container {
             margin-top: 5px;
@@ -25,52 +26,7 @@
     </style>
 </head>
 <body>
-    <section class="section" x-data="{
-    message: 'hello, vue',
-    random: (n)=>Math.floor(Math.random() * n),
-    swap: '',
-    tops: ['blacktopic','blacktshirt','leotopic','crosshirt'],
-    downs: ['lightjeans','holejeans','whiteshorts','blueshorts'],
-    field: [[],[],[],[]],
-    i:null,
-    j:null,
-
-    init: function(){
-        this.i = this.random(this.tops.length);
-        this.j = this.random(this.downs.length);
-
-        for (let i=0; i<this.tops.length;i++)
-        for (let j=0;j<this.downs.length;j++){
-            //console.log(i,j, this.tops[i],this.down[j]);
-            this.field[i][j]=this.tops[i]+'-'+this.downs[j];
-            }
-    this.update();
-    this.swap = 'static/buterin.png';
-    },
-
-    update: function(){
-
-    this.swap = 'static/'+this.field[this.i][this.j]+'.jpg';
-    //this.field[this.i][this.j]='';
-    },
-
-    nextTop: function(){
-        let i0 = this.i;
-        do this.i = this.random(this.tops.length);
-        while ( i0 === this.i)
-        this.update();
-    },
-    nextDown: function(){
-        let j0 = this.j;
-        do
-         this.j = this.random(this.downs.length);
-        while (j0 === this.j)
-        this.update();
-    }
-
-    }"
-    x-init="init()"
-    >
+    <section class="section" x-data="lmsthegame" x-init="initData">
         <div class="container">
             <div class="photo-container">
                 <figure class="image">
