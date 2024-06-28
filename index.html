@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swipe Event</title>
+    <title>SwipeMyStyle</title>
     <script src="//unpkg.com/alpinejs" defer></script>
-
     <script src="static/main.js"></script>
     <style>
         #swipeArea {
@@ -19,21 +18,25 @@
             position: relative;
             display: inline-block;
         }
+
         .photo-container {
             /*margin-top: 5px;*/
         }
+
         .photo-container img {
             width: 100%;
             height: auto;
             display: block;
             z-index: -1;
         }
+
         .overlay {
             position: absolute;
             left: 0;
             width: 100%;
             z-index: 1;
         }
+
         .top {
             top: 0;
             height: 50%;
@@ -47,16 +50,15 @@
 </head>
 <body>
 
-<section class="section" x-data="swipemystyle"  >
+<section class="section" x-data="swipemystyle">
     <div class="container">
-        <div ><span x-text="title"></span></div>
-        <div id="swipeArea"  class="photo-container">
-            <img src="static/vchepys.jpg" @click="alert('photo')" alt="Person Photo">
+        <div id="swipeArea" class="photo-container">
+            <img x-bind:src="swap" @click="alert('photo')" alt="Person Photo">
             <div class="overlay top" x-ref="top"></div>
             <div class="overlay down" x-ref="down"></div>
         </div>
-        <div class="bonus" x-ref="bonus"
-             style="background-color: red; height: 120px; width: 100%"></div>
+<!--        <div class="bonus" x-ref="bonus"-->
+<!--             style="background-color: red; height: 120px; width: 100%"></div>-->
     </div>
 </section>
 <!--<script src="static/swipe.js"></script>-->

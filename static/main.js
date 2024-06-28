@@ -52,7 +52,14 @@ document.addEventListener('alpine:init', () => {
         initData: function () {
             this.title = 'pialne.js';
         }
-    }))
+    }));
+
+    const SwipeDirection = Object.freeze({
+        UP: 'up',
+        DOWN: 'down',
+        LEFT: 'left',
+        RIGHT: 'right'
+    });
 
     Alpine.data('swipemystyle', () => ({
         title: 'swipemystyle',
@@ -65,12 +72,11 @@ document.addEventListener('alpine:init', () => {
         i: null,
         j: null,
 
-
         init: function () {
             console.log('initing sms');
             this.setupSwipeEvents(this.$refs.top, 'top');
             this.setupSwipeEvents(this.$refs.down, 'down');
-            this.setupSwipeEvents(this.$refs.bonus, 'bonus');
+            // this.setupSwipeEvents(this.$refs.bonus, 'bonus');
 
             this.i = this.random(this.tops.length);
             this.j = this.random(this.downs.length);
@@ -105,28 +111,38 @@ document.addEventListener('alpine:init', () => {
         },
 
         handleSwipeGesture(touchstartX, touchendX, touchstartY, touchendY, messageKey) {
-            const swipeThreshold = 50; // Minimum distance to be considered a swipe
+            const swipeThreshold = 30; // Minimum distance to be considered a swipe
             const deltaX = touchendX - touchstartX;
             const deltaY = touchendY - touchstartY;
+            let gesture;
 
+            //define gesture
             if (Math.abs(deltaX) > Math.abs(deltaY)) {
                 if (Math.abs(deltaX) > swipeThreshold) {
                     if (deltaX > 0) {
-                        this[messageKey] = 'Swiped Right';
+                        gesture = SwipeDirection.RIGHT;
                     } else {
-                        this[messageKey] = 'Swiped Left';
+                        gesture = SwipeDirection.LEFT;
                     }
                 }
             } else {
                 if (Math.abs(deltaY) > swipeThreshold) {
                     if (deltaY > 0) {
-                        this[messageKey] = 'Swiped Down';
+                        gesture = SwipeDirection.DOWN;
                     } else {
-                        this[messageKey] = 'Swiped Up';
+                        gesture = SwipeDirection.UP;
                     }
                 }
             }
-            console.log(this[messageKey])
+
+            console.log(messageKey, gesture);
+            if (gesture === SwipeDirection.LEFT) {
+                if (messageKey === 'top')
+                    this.nextTop()
+                else if (messageKey === 'down')
+                    this.nextDown();
+            }
+            if (gesture === SwipeDirection.UP) console.log('cool look')
         },
 
         update: function () {
